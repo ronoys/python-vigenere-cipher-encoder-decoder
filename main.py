@@ -1,4 +1,4 @@
-def vigenere(text,key):
+def vigenere(text,key,z):
     
     letters = list('abcdefghijklmnopqrstuvwxyz')
     newletters = letters
@@ -17,17 +17,33 @@ def vigenere(text,key):
     keyStream = emptyList
     emptyList = []
 
-    for x in range(0,len(keyStream)):
-        textLetter = textlist[x]
-        keyLetter = keyStream[x]
-        letterIndex = letters.index(textLetter)
-        letterIndex2 = letters.index(keyLetter)
-        new_letter = letters[(letterIndex+letterIndex2) % len(letters)]
-        emptyList.append(new_letter)
-
+    if z == 'e':
+        for x in range(0,len(keyStream)):
+            textLetter = textlist[x]
+            keyLetter = keyStream[x]
+            letterIndex = letters.index(textLetter)
+            letterIndex2 = letters.index(keyLetter)
+            new_letter = letters[(letterIndex+letterIndex2) % len(letters)]
+            emptyList.append(new_letter)
+    elif z == 'd':
+        for x in range(0,len(keyStream)):
+            textLetter = textlist[x]
+            keyLetter = keyStream[x]
+            letterIndex = letters.index(textLetter)
+            letterIndex2 = letters.index(keyLetter)
+            new_letter = letters[(letterIndex-letterIndex2) % len(letters)]
+            emptyList.append(new_letter)
+            
     str1 = ''.join(emptyList)
     print (str1)
+     
+def main():
         
+    text_input = str(input("Enter the string: "))
+    key_input = str(input("Enter the key: "))
+    true_false = str(input("Enter e(encrypt) or d(decrypt): "))
+    vigenere(text_input,key_input,true_false)
     
-
-(vigenere("attackatdawn","lemon"))
+    
+    
+main() # calls procedure
