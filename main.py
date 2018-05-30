@@ -1,6 +1,7 @@
 def vigenere(text,key,z):
     
     letters = list('abcdefghijklmnopqrstuvwxyz')
+    uppercase = list('ABCDEFGHIJKLMNOPQRSTUVWXYZ')
     newletters = letters
     
     keylist = list(key)
@@ -19,23 +20,77 @@ def vigenere(text,key,z):
 
     if z == 'e':
         for x in range(0,len(keyStream)):
-            textLetter = textlist[x]
-            keyLetter = keyStream[x]
-            letterIndex = letters.index(textLetter)
-            letterIndex2 = letters.index(keyLetter)
-            new_letter = letters[(letterIndex+letterIndex2) % len(letters)]
-            emptyList.append(new_letter)
-    elif z == 'd':
-        for x in range(0,len(keyStream)):
-            textLetter = textlist[x]
-            keyLetter = keyStream[x]
-            letterIndex = letters.index(textLetter)
-            letterIndex2 = letters.index(keyLetter)
-            new_letter = letters[(letterIndex-letterIndex2) % len(letters)]
-            emptyList.append(new_letter)
+
             
+            textLetter = textlist[x]
+            keyLetter = keyStream[x]
+
+            if textLetter in letters:
+                
+                letterIndex = letters.index(textLetter)
+                
+                if keyLetter in letters:
+                    letterIndex2 = letters.index(keyLetter)
+                elif keyLetter in uppercase:
+                    letterIndex2 = uppercase.index(keyLetter)
+                
+                new_letter = letters[(letterIndex+letterIndex2) % len(letters)]
+                emptyList.append(new_letter)
+                
+            elif textLetter in uppercase:
+
+                letterIndex = uppercase.index(textLetter)
+
+                if keyLetter in letters:
+                    letterIndex2 = letters.index(keyLetter)
+                elif keyLetter in uppercase:
+                    letterIndex2 = uppercase.index(keyLetter)
+                    
+                
+                new_letter = uppercase[(letterIndex+letterIndex2) % len(letters)]
+                emptyList.append(new_letter)
+
+            else:
+                emptyList.append(textLetter)
+                
+    elif z == 'd':
+        
+        for x in range(0,len(keyStream)):
+            
+            textLetter = textlist[x]
+            keyLetter = keyStream[x]
+
+            if textLetter in letters:
+                
+                letterIndex = letters.index(textLetter)
+
+                if keyLetter in letters:
+                    letterIndex2 = letters.index(keyLetter)
+                elif keyLetter in uppercase:
+                    letterIndex2 = uppercase.index(keyLetter)
+                    
+                
+                new_letter = letters[(letterIndex-letterIndex2) % len(letters)]
+                emptyList.append(new_letter)
+                
+            elif textLetter in uppercase:
+                
+                letterIndex = uppercase.index(textLetter)
+
+                if keyLetter in letters:
+                    letterIndex2 = letters.index(keyLetter)
+                elif keyLetter in uppercase:
+                    letterIndex2 = uppercase.index(keyLetter)
+
+                new_letter = uppercase[(letterIndex-letterIndex2) % len(letters)]
+                emptyList.append(new_letter)
+
+            else:
+                emptyList.append(textLetter)
+
+                
     str1 = ''.join(emptyList)
-    print (str1)
+    print "The result is: " + (str1)
      
 def main():
         
